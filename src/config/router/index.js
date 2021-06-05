@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import { Splash, HomeScreen, ReadingPage, WritingPage, ListeningPage } from '../../containers/pages';
+import { Splash, HomeScreen, ReadingPage, WritingPage, ListeningPage, ExerciseDetail } from '../../containers/pages';
 
 const Stack = createStackNavigator();
 
@@ -12,6 +12,7 @@ const Router = () => {
             <Stack.Screen name="ReadingPage" component={ReadingPage} options={{headerShown: false}} />
             <Stack.Screen name="WritingPage" component={WritingPage} options={{headerShown: false}} />
             <Stack.Screen name="ListeningPage" component={ListeningPage} options={{headerShown: false}} />
+            <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} options={{headerShown: false}} />
         </Stack.Navigator>
     )
 }
