@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { View, Text, ImageBackground, Dimensions, ScrollView } from 'react-native';
 import { colors } from '../../../utils/colors';
 import LogoHarmoni from '../../../assets/logo/LogoHarmoni.png';
@@ -65,6 +66,13 @@ const styles = {
 };
 
 const HomeScreen = ({navigation}) => {
+    const [taskList, setTaskList] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://192.168.100.9:1337/tasks/')
+            .then((res) => setTaskList(res.data));
+    }, []);
+
     return (
         <View style={styles.wrapper}>
             <ScrollView contentContainerStyle={{flexGrow: 1}} showsVerticalScrollIndicator={false}>
@@ -95,16 +103,12 @@ const HomeScreen = ({navigation}) => {
                 </View>
                 <View style={styles.exercisesWrapper}>
                     <Text style={styles.label}>Exercises Tasks</Text>
-                    <ExerciseTasks taskDate="06-05-2021" taskTitle="Latihan Reading" taskDeadline="06-06-2021" 
-                    onPress={() => navigation.navigate('ExerciseDetail', {id: '1'})} />
-                    <ExerciseTasks taskDate="07-05-2021" taskTitle="Latihan Writing" taskDeadline="07-06-2021" 
-                    onPress={() => navigation.navigate('ExerciseDetail', {id: '2'})} />
-                    <ExerciseTasks taskDate="08-05-2021" taskTitle="Latihan Listening" taskDeadline="08-06-2021" 
-                    onPress={() => navigation.navigate('ExerciseDetail', {id: '3'})} />
-                    <ExerciseTasks taskDate="09-05-2021" taskTitle="Latihan Reading" taskDeadline="09-06-2021" 
-                    onPress={() => navigation.navigate('ExerciseDetail', {id: '4'})} />
-                    <ExerciseTasks taskDate="10-05-2021" taskTitle="Latihan Writing" taskDeadline="10-06-2021" 
-                    onPress={() => navigation.navigate('ExerciseDetail', {id: '5'})} />
+                    {
+                        taskList.map(task => (
+                            <ExerciseTasks key={task.id} taskDate={task.task_date} taskTitle={task.task_name} taskDeadline={task.task_deadline} 
+                            onPress={() => navigation.navigate('ExerciseDetail', {id: task.id})} />
+                        ))
+                    }
                 </View>
             </ScrollView>
         </View>
