@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {WebView} from 'react-native-webview';
-import { View, Text, Image, Dimensions } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
+
+import ImageModal from 'react-native-image-modal';
+import TrackPlayer from 'react-native-track-player';
 import { colors } from '../../../utils/colors';
 import BackIcon from '../../../assets/logo/BackIcon.png';
 import TasksIllustration from '../../../assets/image/TasksIllustration.svg'
@@ -51,8 +53,20 @@ const styles = {
         width: windowWidth / 1.1,
         height: windowHeight / 2,
     },
-    audioWrapper: {
-        backgroundColor: 'transparent',
+    buttonWrapper: {
+        flexDirection: 'row',
+    },
+    buttonContent: {
+        backgroundColor: colors.rule,
+        padding: 10,
+        borderRadius: 10,
+        margin: 10,
+        width: 150,
+    },
+    buttonText: {
+        fontSize: 15,
+        color: 'white',
+        textAlign: 'center',
     },
 }
 
@@ -60,6 +74,22 @@ const ExerciseDetail = ({navigation, route}) => {
     const { id } = route.params;
     const [task, setTask] = useState({});
     const [taskQuestion, setTaskQuestion] = useState([]);
+
+    const startPlay = async (sound) => {
+        await TrackPlayer.setupPlayer();
+
+        await TrackPlayer.add({
+            url: sound,
+        });
+    
+        await TrackPlayer.play();
+    };
+
+    const pausePlay = async () => await TrackPlayer.pause();
+
+    useEffect(() => {
+        return () => TrackPlayer.destroy();
+      }, []);
 
     useEffect(() => {
         axios.get(`http://192.168.100.9:1337/tasks/${id}`)
@@ -101,20 +131,28 @@ const ExerciseDetail = ({navigation, route}) => {
                                 <View key={question.id}>
                                     <Text style={styles.questionText}>No: {index + 1}</Text>
                                     <HorizontalRule />
-                                    <Image 
-                                    source={{uri: `http://192.168.100.9:1337${question.formats.large.url}`}}
-                                    style={styles.questionImage} /> 
+                                    <ImageModal
+                                        key={question.id}
+                                        resizeMode="contain"
+                                        imageBackgroundColor="#FFFFFF"
+                                        style={styles.questionImage}
+                                        source={{
+                                            uri: `http://192.168.100.9:1337${question.formats.large.url}`,
+                                        }}
+                                    />
                                 </View>
                             ) : (
                                 <View key={question.id} style={{flex: 1}}>
-                                    <WebView
-                                    style={styles.audioWrapper}
-                                    javaScriptEnabled={true}
-                                    domStorageEnabled={true}
-                                    source={{ html: `
-                                    <audio style="width: 100%;" controls>
-                                    <source src="http://192.168.100.9:1337` + question.url + `"type="audio/mpeg">
-                                    </audio>`}}/>
+                                    <Text style={styles.questionText}>No: {index + 1}</Text>
+                                    <HorizontalRule />
+                                    <View style={styles.buttonWrapper}>
+                                        <TouchableOpacity style={styles.buttonContent} onPress={() => pausePlay()}>
+                                            <Text style={styles.buttonText}>Pause</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.buttonContent} onPress={() => startPlay(`http://192.168.100.9:1337${question.url}`)}>
+                                            <Text style={styles.buttonText}>Play</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                                 )
                             )
