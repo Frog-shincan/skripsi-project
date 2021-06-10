@@ -5,9 +5,10 @@ import TaskIcon from '../../../assets/icon/TaskIcon.svg';
 const styles = {
     exerciseContainer: {
         marginTop: 15,
+        padding: 20,
+        flexDirection: 'row',
         borderRadius: 10,
         backgroundColor: '#ADD7D8',
-        padding: 20,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -16,7 +17,6 @@ const styles = {
         shadowOpacity: 0.22,
         shadowRadius: 2.22,
         elevation: 3,
-        flexDirection: 'row',
     },
     taskIconWrapper: {
         justifyContent: 'center',
@@ -26,21 +26,21 @@ const styles = {
         paddingHorizontal: 20,
     },
     taskDate: {
-        fontSize: 18,
         marginTop: 5,
+        fontSize: 18,
         color: '#294D8D',
     },
     taskTitle: {
-        fontSize: 18,
         marginTop: 5,
+        fontSize: 18,
         color: '#C64EB4',
     },
     taskDeadline: {
-        fontSize: 18,
         marginTop: 5,
+        fontSize: 18,
         color: '#FF4D00'
     },
-}
+};
 
 const ExerciseTasks = (props) => {
     return (
@@ -55,6 +55,6 @@ const ExerciseTasks = (props) => {
             </View>
         </TouchableOpacity>
     )
-}
+};
 
 export default ExerciseTasks;

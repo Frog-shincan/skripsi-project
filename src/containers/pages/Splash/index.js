@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {View, Image} from 'react-native';
-import LogoHarmoni from '../../../assets/logo/LogoHarmoni.png';
 import { colors } from '../../../utils/colors';
+import LogoHarmoni from '../../../assets/logo/LogoHarmoni.png';
 
 const styles = {
     wrapper: {
@@ -14,14 +14,14 @@ const styles = {
         width: 330,
         height: 310,
     },
-}
+};
 
 const Splash = ({navigation}) => {
     useEffect(() => {
         setTimeout(() => {
             navigation.replace('HomeScreen');
         }, 2000);
-    }, [])
+    }, []);
 
     return (
         <View style={styles.wrapper}>
@@ -31,6 +31,6 @@ const Splash = ({navigation}) => {
             />
         </View>
     )
-}
+};
 
 export default Splash;

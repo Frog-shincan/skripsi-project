@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native'
+import {NavigationContainer} from '@react-navigation/native';
 import Router from './config/router';
 
 const App = () => {
@@ -8,6 +8,6 @@ const App = () => {
       <Router />
     </NavigationContainer>
   )
-}
+};
 
 export default App;

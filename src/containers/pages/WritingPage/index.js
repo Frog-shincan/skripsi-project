@@ -2,36 +2,36 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { View, Text, ScrollView } from 'react-native';
 import { colors } from '../../../utils/colors';
+import { ContentSection, IconButton } from '../../../components/atoms';
+import { REACT_APP_HOST_API } from '../../../utils/constant';
 import BackIcon from '../../../assets/logo/BackIcon.png';
-import WritingIllustration from '../../../assets/image/WritingIllustration.svg'
-import { IconButton } from '../../../components/atoms';
-import ContentSection from '../../../components/atoms/ContentSection';
+import WritingIllustration from '../../../assets/image/WritingIllustration.svg';
 
 const styles = {
     wrapper: {
-        flex: 1,
         padding: 20,
+        flex: 1,
     },
     illustrationWrapper: {
         marginTop: 10,
         alignSelf: 'center',
     },
     bannerText: {
+        maxWidth: 225,
+        marginTop: 16,
         fontSize: 14,
         fontWeight: 'bold',
-        color: colors.primary,
-        marginTop: 16,
-        maxWidth: 225,
         textAlign: 'center',
         alignSelf: 'center',
+        color: colors.primary,
     },
-}
+};
 
 const WritingPage = ({navigation}) => {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        axios.get('http://192.168.100.9:1337/writing-courses/')
+        axios.get(`${REACT_APP_HOST_API}/writing-courses/`)
             .then((res) => setCourses(res.data));
     }, []);
 

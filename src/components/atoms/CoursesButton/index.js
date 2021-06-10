@@ -1,16 +1,15 @@
-import React from 'react'
-import { View, TouchableOpacity, Text } from 'react-native'
+import React from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 
 const styles = {
     iconWrapper: {
-        height: 100,
         width: 100,
+        height: 100,
         marginTop: 20,
-        
     },
     courseIcon: {
-        backgroundColor: 'aquamarine',
         padding: 20,
+        backgroundColor: 'aquamarine',
         borderRadius: 25,
         shadowColor: "#000",
         shadowOffset: {
@@ -22,11 +21,11 @@ const styles = {
         elevation: 3,
     },
     courseLabel: {
+        marginTop: 7,
         fontSize: 15,
         textAlign: 'center',
-        marginTop: 7,
     },
-}
+};
 
 const CoursesButton = (props) => {
     return (
@@ -39,6 +38,6 @@ const CoursesButton = (props) => {
             <Text style={styles.courseLabel}>{props.label}</Text>
         </View>
     )
-}
+};
 
 export default CoursesButton;

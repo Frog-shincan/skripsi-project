@@ -1,74 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
-
-import ImageModal from 'react-native-image-modal';
 import TrackPlayer from 'react-native-track-player';
+import ImageModal from 'react-native-image-modal';
+import { View, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import { colors } from '../../../utils/colors';
+import { IconButton, HorizontalRule } from '../../../components/atoms';
+import { REACT_APP_HOST_API } from '../../../utils/constant';
 import BackIcon from '../../../assets/logo/BackIcon.png';
 import TasksIllustration from '../../../assets/image/TasksIllustration.svg'
-import { IconButton, HorizontalRule } from '../../../components/atoms';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const styles = {
     wrapper: {
-        flex: 1,
         padding: 20,
+        flex: 1,
     },
     illustrationWrapper: {
         marginTop: 10,
         alignSelf: 'center',
     },
     bannerText: {
-        fontSize: 21,
-        fontWeight: 'bold',
-        color: colors.primary,
         marginTop: 16,
         maxWidth: 225,
+        fontSize: 21,
+        fontWeight: 'bold',
         textAlign: 'center',
         alignSelf: 'center',
+        color: colors.primary,
     },
     taskWrapper: {
         marginTop: 20,
     },
     taskText: {
-        fontSize: 16,
         paddingTop: 5,
+        fontSize: 16,
     },
     questionText: {
+        marginTop: 15,
         fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 15,
         textAlign: 'center',
     },
     questionWrapper: {
         flex: 1,
     },
     questionImage: {
-        marginTop: 20,
-        borderRadius: 20,
         width: windowWidth / 1.1,
         height: windowHeight / 2,
+        marginTop: 20,
+        borderRadius: 20,
     },
     buttonWrapper: {
         flexDirection: 'row',
     },
     buttonContent: {
-        backgroundColor: colors.rule,
-        padding: 10,
-        borderRadius: 10,
-        margin: 10,
         width: 150,
+        margin: 10,
+        padding: 10,
+        backgroundColor: colors.rule,
+        borderRadius: 10,
     },
     buttonText: {
         fontSize: 15,
-        color: 'white',
         textAlign: 'center',
+        color: 'white',
     },
-}
+};
 
 const ExerciseDetail = ({navigation, route}) => {
     const { id } = route.params;
@@ -92,7 +91,7 @@ const ExerciseDetail = ({navigation, route}) => {
       }, []);
 
     useEffect(() => {
-        axios.get(`http://192.168.100.9:1337/tasks/${id}`)
+        axios.get(`${REACT_APP_HOST_API}/tasks/${id}`)
             .then((res) => {
                 setTask(res.data);
                 setTaskQuestion(res.data.task_question);
@@ -137,7 +136,7 @@ const ExerciseDetail = ({navigation, route}) => {
                                         imageBackgroundColor="#FFFFFF"
                                         style={styles.questionImage}
                                         source={{
-                                            uri: `http://192.168.100.9:1337${question.formats.large.url}`,
+                                            uri: `${REACT_APP_HOST_API}${question.url}`,
                                         }}
                                     />
                                 </View>
@@ -149,7 +148,7 @@ const ExerciseDetail = ({navigation, route}) => {
                                         <TouchableOpacity style={styles.buttonContent} onPress={() => pausePlay()}>
                                             <Text style={styles.buttonText}>Pause</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={styles.buttonContent} onPress={() => startPlay(`http://192.168.100.9:1337${question.url}`)}>
+                                        <TouchableOpacity style={styles.buttonContent} onPress={() => startPlay(`${REACT_APP_HOST_API}${question.url}`)}>
                                             <Text style={styles.buttonText}>Play</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -162,6 +161,6 @@ const ExerciseDetail = ({navigation, route}) => {
             </ScrollView>
         </View>
     )
-}
+};
 
 export default ExerciseDetail;

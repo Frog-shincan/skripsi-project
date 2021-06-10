@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { View, Text, ImageBackground, Dimensions, ScrollView } from 'react-native';
 import { colors } from '../../../utils/colors';
+import { CoursesButton, ExerciseTasks } from '../../../components/atoms';
+import { REACT_APP_HOST_API } from '../../../utils/constant';
 import LogoHarmoni from '../../../assets/logo/LogoHarmoni.png';
 import ReadingIcon from '../../../assets/icon/ReadingIcon.svg';
 import WritingIcon from '../../../assets/icon/WritingIcon.svg';
 import ListeningIcon from '../../../assets/icon/ListeningIcon.svg';
-import { CoursesButton, ExerciseTasks } from '../../../components/atoms';
-
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -16,11 +16,11 @@ const styles = {
         flex: 1,
     },
     header: {
-        flexDirection: 'row',
         width: '100%',
-        backgroundColor: colors.default,
         paddingVertical: 20,
         paddingHorizontal: 8,
+        flexDirection: 'row',
+        backgroundColor: colors.default,
     },
     logoHome: {
         width: 160,
@@ -28,11 +28,11 @@ const styles = {
         alignSelf: 'flex-end',
     },
     bannerWrapper: {
-        flex: 1,
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        paddingLeft: 20,
         marginTop: 30,
+        paddingLeft: 20,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
     },
     bannerText: {
         fontSize: 18,
@@ -54,12 +54,12 @@ const styles = {
         justifyContent: 'space-between',
     },
     exercisesWrapper: {
-        flex: 1,
         height: '100%',
-        backgroundColor: '#E4E7E4',
-        paddingHorizontal: 30,
         paddingTop: 20,
         paddingBottom: 40,
+        paddingHorizontal: 30,
+        flex: 1,
+        backgroundColor: '#E4E7E4',
         borderTopRightRadius: 25, 
         borderTopLeftRadius: 25,
     },
@@ -69,7 +69,7 @@ const HomeScreen = ({navigation}) => {
     const [taskList, setTaskList] = useState([]);
 
     useEffect(() => {
-        axios.get('http://192.168.100.9:1337/tasks/')
+        axios.get(`${REACT_APP_HOST_API}/tasks/`)
             .then((res) => setTaskList(res.data));
     }, []);
 
@@ -113,6 +113,6 @@ const HomeScreen = ({navigation}) => {
             </ScrollView>
         </View>
     )
-}
+};
 
 export default HomeScreen;

@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { View, Text, ScrollView } from 'react-native';
 import { colors } from '../../../utils/colors';
+import { ContentSection, IconButton } from '../../../components/atoms';
+import { REACT_APP_HOST_API } from '../../../utils/constant';
 import BackIcon from '../../../assets/logo/BackIcon.png';
 import ReadingIllustration from '../../../assets/image/ReadingIllustration.svg'
-import { IconButton } from '../../../components/atoms';
-import ContentSection from '../../../components/atoms/ContentSection';
-
 
 const styles = {
     wrapper: {
@@ -26,13 +25,13 @@ const styles = {
         textAlign: 'center',
         alignSelf: 'center',
     },
-}
+};
 
 const ReadingPage = ({navigation}) => {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        axios.get('http://192.168.100.9:1337/reading-courses/')
+        axios.get(`${REACT_APP_HOST_API}/reading-courses/`)
             .then((res) => setCourses(res.data));
     }, []);
 
@@ -52,6 +51,6 @@ const ReadingPage = ({navigation}) => {
             </ScrollView>
         </View>
     )
-}
+};
 
 export default ReadingPage;

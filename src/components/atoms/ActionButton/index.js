@@ -4,22 +4,22 @@ import { colors } from '../../../utils/colors';
 
 const styles = {
     buttonWrapper: {
-        marginBottom: 30,
         width: 222,
+        marginBottom: 30,
     },
     buttonStyles: {
+        paddingVertical: 15,
         backgroundColor: colors.primary,
         borderRadius: 15,
-        paddingVertical: 15,
     },
     buttonText: {
         fontSize: 12,
         fontWeight: 'bold',
-        color: 'white',
         textTransform: 'uppercase',
         textAlign: 'center',
+        color: 'white',
     },
-}
+};
 
 const ActionButton = (props) => {
     return (
@@ -31,6 +31,6 @@ const ActionButton = (props) => {
             </TouchableOpacity>
         </View>
     )
-}
+};
 
 export default ActionButton;

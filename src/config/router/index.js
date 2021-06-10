@@ -15,6 +15,6 @@ const Router = () => {
             <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} options={{headerShown: false}} />
         </Stack.Navigator>
     )
-}
+};
 
 export default Router;

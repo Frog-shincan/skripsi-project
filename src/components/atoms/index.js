@@ -1,7 +1,8 @@
 import ActionButton from './ActionButton';
+import ContentSection from './ContentSection';
 import CoursesButton from './CoursesButton';
 import ExerciseTasks from './ExerciseTasks';
-import IconButton from './IconButton';
 import HorizontalRule from './HorizontalRule';
+import IconButton from './IconButton';
 
-export {ActionButton, CoursesButton, ExerciseTasks, IconButton, HorizontalRule};
+export {ActionButton, ContentSection, CoursesButton, ExerciseTasks, HorizontalRule, IconButton};

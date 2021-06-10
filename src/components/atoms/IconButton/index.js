@@ -7,6 +7,6 @@ const IconButton = (props) => {
             <Image source={props.iconSource} style={{width: props.width, height: props.height}} />
         </TouchableOpacity>
     )
-}
+};
 
 export default IconButton;
