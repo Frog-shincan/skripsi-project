@@ -73,6 +73,7 @@ const ExerciseDetail = ({navigation, route}) => {
     const { id } = route.params;
     const [task, setTask] = useState({});
     const [taskQuestion, setTaskQuestion] = useState([]);
+    const [audioImage, setAudioImage] = useState([]);
 
     const startPlay = async (sound) => {
         await TrackPlayer.setupPlayer();
@@ -95,6 +96,7 @@ const ExerciseDetail = ({navigation, route}) => {
             .then((res) => {
                 setTask(res.data);
                 setTaskQuestion(res.data.task_question);
+                setAudioImage(res.data.audio_image[0]);
             });
     }, []);
 
@@ -133,7 +135,7 @@ const ExerciseDetail = ({navigation, route}) => {
                                     <ImageModal
                                         key={question.id}
                                         resizeMode="contain"
-                                        imageBackgroundColor="#FFFFFF"
+                                        imageBackgroundColor="transparent"
                                         style={styles.questionImage}
                                         source={{
                                             uri: `${REACT_APP_HOST_API}${question.url}`,
@@ -144,6 +146,14 @@ const ExerciseDetail = ({navigation, route}) => {
                                 <View key={question.id} style={{flex: 1}}>
                                     <Text style={styles.questionText}>No: {index + 1}</Text>
                                     <HorizontalRule />
+                                    <ImageModal
+                                        resizeMode="contain"
+                                        imageBackgroundColor="transparent"
+                                        style={styles.questionImage}
+                                        source={{
+                                            uri: `${REACT_APP_HOST_API}${audioImage.url}`,
+                                        }}
+                                    />
                                     <View style={styles.buttonWrapper}>
                                         <TouchableOpacity style={styles.buttonContent} onPress={() => pausePlay()}>
                                             <Text style={styles.buttonText}>Pause</Text>
