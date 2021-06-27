@@ -6,6 +6,7 @@ const styles = {
         width: 100,
         height: 100,
         marginTop: 20,
+        paddingHorizontal: 3,
     },
     courseIcon: {
         padding: 20,

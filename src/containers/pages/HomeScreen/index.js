@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { View, Text, ImageBackground, Dimensions, ScrollView } from 'react-native';
+import { Alert, BackHandler, View, Text, ImageBackground, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import { colors } from '../../../utils/colors';
 import { CoursesButton, ExerciseTasks } from '../../../components/atoms';
 import { REACT_APP_HOST_API } from '../../../utils/constant';
@@ -63,6 +63,20 @@ const styles = {
         borderTopRightRadius: 25, 
         borderTopLeftRadius: 25,
     },
+    quitButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 50,
+        marginVertical: 30,
+        marginHorizontal: 50,
+        paddingHorizontal: 30,
+        borderRadius: 15,
+        backgroundColor: colors.rule,
+    },
+    quitText: {
+        color: 'white',
+        fontSize: 20,
+    }
 };
 
 const HomeScreen = ({navigation}) => {
@@ -72,6 +86,22 @@ const HomeScreen = ({navigation}) => {
         axios.get(`${REACT_APP_HOST_API}/tasks/`)
             .then((res) => setTaskList(res.data));
     }, []);
+
+    const handleQuit = () => {
+        Alert.alert(
+            "Quit App",
+            "Do you want to Quit?",
+        [
+            {
+                text: "No",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+            },
+            { text: "Yes", onPress: () => BackHandler.exitApp() }
+        ],
+            { cancelable: false }
+        );
+    }
 
     return (
         <View style={styles.wrapper}>
@@ -110,6 +140,9 @@ const HomeScreen = ({navigation}) => {
                         ))
                     }
                 </View>
+            <TouchableOpacity onPress={() => handleQuit()} style={styles.quitButton}>
+                <Text style={styles.quitText}>Quit</Text>
+            </TouchableOpacity>
             </ScrollView>
         </View>
     )
